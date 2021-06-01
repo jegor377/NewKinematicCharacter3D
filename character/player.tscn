@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://character/player.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleMesh" id=1]
+mid_height = 2.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 1.25, 0.75, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.278431, 0.278431, 0.278431, 1 )
+
+[sub_resource type="CapsuleShape" id=6]
+height = 2.0
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CameraPivot" type="Spatial" parent="."]
+
+[node name="CameraBoom" type="SpringArm" parent="CameraPivot"]
+spring_length = 15.0
+
+[node name="Camera" type="Camera" parent="CameraPivot/CameraBoom"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.75 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 6 )
