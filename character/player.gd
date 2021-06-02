@@ -2,6 +2,7 @@ extends KinematicCharacter
 
 
 export(float) var speed = 50
+export(float) var speed_change_rate = 15
 
 export(float, 0.1, 1.0) var mouse_sensivitiy = 0.3
 export(float, -90, 0) var min_pitch = -90
@@ -26,7 +27,9 @@ func _manipulate_velocities(delta: float) -> void:
 		dir -= transform.basis.x
 	if right:
 		dir += transform.basis.x
-	static_velocity = dir * speed
+	static_velocity = static_velocity.linear_interpolate(dir * speed, speed_change_rate * delta)
+	if static_velocity.length() < 0.5:
+		static_velocity = Vector3.ZERO
 
 func _handle_collision(collision: KinematicCollision, delta: float) -> void:
 	if collision.collider.is_in_group('Bouncer'):

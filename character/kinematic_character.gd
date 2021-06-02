@@ -21,13 +21,11 @@ func _physics_process(delta: float) -> void:
 	
 	_manipulate_velocities(delta)
 	
-	apply_static_velocity(delta)
-	
 	if velocity.length() < min_velocity:
 		velocity = Vector3.ZERO
-	
-	if velocity.length() > 0:
-		move_character(delta)
+
+	move_character(delta)
+	move_character_static(delta)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -36,17 +34,21 @@ func apply_gravity(delta: float) -> void:
 		velocity.y = max(velocity.y, 0)
 
 func apply_dyn_vel_damp(delta: float) -> void:
-	velocity = velocity.linear_interpolate(Vector3(0, velocity.y, 0), velocity_damp * delta)
-
-func apply_static_velocity(delta: float) -> void:
-	if static_velocity.length() != 0:
-		velocity = velocity.linear_interpolate(static_velocity + velocity, velocity_change_rate * delta)
+	velocity -= Vector3(velocity.x, 0, velocity.z) * velocity_damp * delta
 
 func move_character(delta: float) -> void:
-	if velocity.y > 0:
-		velocity = move_and_slide(velocity, up)
-	else:
-		velocity = move_and_slide_with_snap(velocity, Vector3.DOWN, up)
+	if velocity.length() > 0:
+		if velocity.y > 0:
+			velocity = move_and_slide(velocity, up)
+		else:
+			velocity = move_and_slide_with_snap(velocity, Vector3.DOWN * 2, up)
+
+func move_character_static(delta: float) -> void:
+	if static_velocity.length() > 0:
+		if static_velocity.y > 0:
+			move_and_slide(static_velocity, up)
+		else:
+			move_and_slide_with_snap(static_velocity, Vector3.DOWN * 2, up)
 
 func apply_impulse(vel: Vector3) -> void:
 	velocity += vel

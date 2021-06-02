@@ -5,18 +5,18 @@
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.266667, 1, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0, 0.415686, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.921569, 1, 0, 1 )
 
-[sub_resource type="CubeMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=5]
 
-[sub_resource type="GIProbeData" id=2]
+[sub_resource type="GIProbeData" id=6]
 bounds = AABB( -80.565, -51.9258, -56.6318, 161.13, 103.852, 113.264 )
 cell_size = 1.25883
 to_cell_xform = Transform( 0.79439, 0, 0, 0, 0.79439, 0, 0, 0, 0.79439, 64, 41.2493, 44.9877 )
@@ -49,7 +49,7 @@ transform = Transform( 0.789324, -0.252589, -0.559613, 0.304781, 0.952422, -8.85
 use_in_baked_light = true
 width = 17.5546
 depth = 17.1572
-material = SubResource( 3 )
+material = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
@@ -64,11 +64,11 @@ __meta__ = {
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
 use_in_baked_light = true
-mesh = SubResource( 5 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="StaticBody2" type="StaticBody" parent="." groups=[
 "Bouncer2",
@@ -80,15 +80,15 @@ __meta__ = {
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody2"]
 use_in_baked_light = true
-mesh = SubResource( 5 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 59, 94.2627 )
 
 [node name="GIProbe" type="GIProbe" parent="."]
 extents = Vector3( 80.565, 51.9258, 56.6318 )
-data = SubResource( 2 )
+data = SubResource( 6 )
