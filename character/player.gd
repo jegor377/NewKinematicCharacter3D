@@ -27,7 +27,7 @@ func _manipulate_velocities(delta: float) -> void:
 		dir -= transform.basis.x
 	if right:
 		dir += transform.basis.x
-	static_velocity = static_velocity.linear_interpolate(dir * speed, speed_change_rate * delta)
+	static_velocity = static_velocity.linear_interpolate(dir.normalized() * speed, speed_change_rate * delta)
 	if static_velocity.length() < 0.5:
 		static_velocity = Vector3.ZERO
 
